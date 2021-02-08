@@ -1,5 +1,12 @@
 <template>
-  <div class="card"><h2>Navbar</h2></div>
+  <nav class="navbar">
+    <h3>Биржа фриланс</h3>
+
+    <ul class="navbar-menu">
+      <li><router-link to="/tasks">Все задачи</router-link></li>
+      <li><router-link to="/new">Создать</router-link></li>
+    </ul>
+  </nav>
 </template>
 
 <script>
