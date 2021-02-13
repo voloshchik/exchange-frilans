@@ -22,9 +22,11 @@
 
 <script>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 export default {
   setup() {
+    const router = useRouter()
     const store = useStore()
     // const store = useStore()
     const title = ref('lern react')
@@ -45,6 +47,7 @@ export default {
       }
 
       store.dispatch('createTask', data)
+      router.push('/tasks')
     }
 
     return {

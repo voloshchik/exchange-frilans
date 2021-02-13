@@ -5,7 +5,7 @@
     <div class="card" v-for="task of tasks" :key="task.id">
       <h2 class="card-title">
         {{ task.title }}
-        <AppStatus :type="'done'" />
+        <AppStatus :type="task.status" />
       </h2>
       <p>
         <strong>
