@@ -1,39 +1,45 @@
 <template>
-  <div class="card">
+  <div class="card" v-if="task">
     <h2>{{ task.title }}</h2>
     <p><strong>Статус</strong>: <AppStatus :type="task.status" /></p>
     <p><strong>Дэдлайн</strong>: {{ new Date(task.date).toLocaleDateString() }}</p>
     <p><strong>Описание</strong>: {{ task.description }}</p>
     <div>
-      <button @click="setStatus('pending')" class="btn">Взять в работу</button>
-      <button @click="setStatus('done')" class="btn primary">Завершить</button>
-      <button @click="setStatus('cancelled')" class="btn danger">Отменить</button>
+      <button class="btn" @click="setStatus('pending')">Взять в работу</button>
+      <button class="btn primary" @click="setStatus('done')">Завершить</button>
+      <button class="btn danger" @click="setStatus('cancelled')">Отменить</button>
     </div>
   </div>
-  <h3 class="text-white center">Задачи с id = <strong>Tут АЙДИ</strong> нет.</h3>
+  <h3 class="text-white center" v-else>
+    Задачи с id = <strong>{{ id }}</strong> нет.
+  </h3>
 </template>
 
 <script>
-import AppStatus from '../components/AppStatus'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
+import AppStatus from '../components/AppStatus'
+
 export default {
   components: { AppStatus },
-  setup() {
-    const route = useRoute()
+  props: ['id'],
+  setup(props) {
+    console.log('props', props)
     const store = useStore()
-    const id = route.params.id
+
+    // eslint-disable-next-line vue/no-setup-props-destructure
+    const id = props.id
     const task = computed(() => store.getters.taskById(id))
 
     const setStatus = (status) => {
-      // eslint-disable-next-line no-unused-vars
       const updated = { ...task.value, status }
-      console.log('updtaskated', task)
       store.dispatch('changeTask', updated)
     }
+
     return {
       task,
+      // eslint-disable-next-line vue/no-dupe-keys
+      id,
       setStatus,
     }
   },

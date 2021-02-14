@@ -30,7 +30,7 @@ export default {
     const activeTasksCount = computed(() => store.getters.activeTaskCount)
     const tasks = computed(() => store.getters.tasks)
     const open = (id) => router.push(`/task/${id}`)
-    console.log('activeTasksCount', activeTasksCount)
+
     return {
       activeTasksCount,
       tasks,
