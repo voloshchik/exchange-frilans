@@ -40,7 +40,7 @@ export default {
     const create = () => {
       const data = {
         title: title.value,
-        date: date.value,
+        date: new Date(date.value).setHours(23, 59, 59, 999),
         description: description.value,
         id: Date.now(),
         status: 'active',

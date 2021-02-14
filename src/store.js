@@ -3,17 +3,22 @@ import { createStore } from 'vuex'
 export const store = createStore({
   state() {
     return {
-      tasks: [],
+      tasks: JSON.parse(localStorage.getItem('my-tasks')) ?? [],
     }
   },
   mutations: {
     createTask(state, task) {
+      if (task.date < new Date()) {
+        task.status = 'cancelled'
+      }
       state.tasks.push(task)
+      localStorage.setItem('my-tasks', JSON.stringify(state.tasks))
     },
     changeTask(state, update) {
       const { id } = update
       const idx = state.tasks.findIndex((t) => t.id == id)
       state.tasks[idx] = update
+      localStorage.setItem('my-tasks', JSON.stringify(state.tasks))
     },
   },
   actions: {
