@@ -1,12 +1,16 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import New from '@/views/New'
+
 import Tasks from '@/views/Tasks'
 
 export const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     { path: '/', redirect: '/tasks' },
-    { path: '/new', component: New },
+    {
+      path: '/new',
+      name: 'New',
+      component: () => import('../src/views/New.vue'),
+    },
     { path: '/tasks', component: Tasks },
     {
       path: '/task/:id',

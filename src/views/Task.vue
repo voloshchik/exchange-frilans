@@ -27,9 +27,7 @@ export default {
     console.log('props', props)
     const store = useStore()
 
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const id = props.id
-    const task = computed(() => store.getters.taskById(id))
+    const task = computed(() => store.getters.taskById(props.id))
 
     const setStatus = (status) => {
       const updated = { ...task.value, status }
@@ -39,7 +37,7 @@ export default {
     return {
       task,
       // eslint-disable-next-line vue/no-dupe-keys
-      id,
+
       setStatus,
     }
   },
